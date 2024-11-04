@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>National Geographic - Dinosaurios</title>
+    <style>
+        /* Estilos generales */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: rgb(0, 0, 0);
+            /* Fondo blanco en los lados */
+            font-family: Figtree, sans-serif;
+        }
+
+        /* Contenedor principal centrado */
+        .container {
+            background-color: #ffffff;
+            /* Fondo negro para el contenido */
+            color: rgb(0, 0, 0);
+            width: 70%;
+            /* Ancho máximo del contenido */
+            margin: 0 auto;
+            /* Centrar el contenedor */
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            /* Sombra opcional para darle un efecto elevado */
+        }
+
+        .menu {
+            font-family: Figtree, sans-serif;
+        }
+
+        /* Estilos del menú */
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            font-size: small;
+        }
+
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+        }
+
+        /* Estilos del encabezado */
+        header img {
+            margin-top: 5px;
+            background-color: #ffffff;
+
+        }
+
+        header {
+            background-color: #ffffff;
+            /* Color de fondo del encabezado */
+            padding: 10px;
+            /* Espaciado superior e inferior */
+            text-align: center;
+            /* Centra el contenido horizontalmente */
+            margin: 0;
+            width: 100%;
+        }
+
+
+        /* Línea amarilla */
+        hr {
+            border: 0;
+            height: 3px;
+            background-color: rgb(255, 204, 0);
+            /* Amarillo */
+            width: 100%;
+            margin: 0px auto;
+
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: #000;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+            margin-top: auto;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: none;
+
+        }
+
+        nav a:hover {
+            border-bottom: 2px solid rgb(255, 218, 11);
+            /* Línea amarilla en la parte de abajo, parte de inestigacion */
+
+        }
+
+        /* section image{
+            text-align: center;
+        } */
+        /* footer a {
+            border-bottom: 2px solid rgb(255, 243, 11);
+        } */
+
+        section h2 {
+            text-align: center;
+            font-size: 4em;
+            margin-bottom: 0;
+            margin: 0;
+        }
+
+        section p {
+            margin-top: 0;
+            /* Elimina el espacio superior del párrafo */
+        }
+
+        image section {
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* imagesa */
+        section img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        figure {
+            text-align: center;
+        }
+
+        figure caption {
+            color: rgb(255, 221, 0);
+            text-align: center;
+
+        }
+
+        .slide {
+            position: relative;
+            box-shadow: 0px 1px 6px rgba(0, 0, 0, 0.64);
+            margin-top: 26px;
+        }
+
+        .slide-inner {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+
+            height: calc(300px + 3em);
+        }
+
+        .slide-open:checked+.slide-item {
+            position: static;
+            opacity: 100;
+        }
+
+        .slide-item {
+            position: absolute;
+            opacity: 0;
+            -webkit-transition: opacity 0.6s ease-out;
+            transition: opacity 0.6s ease-out;
+        }
+
+        .slide-item img {
+            display: block;
+            height: auto;
+            max-width: 100%;
+        }
+
+        .slide-control {
+            background: rgb(255, 234, 0);
+            border-radius: 50%;
+            color: #fff;
+            cursor: pointer;
+            display: none;
+            font-size: 40px;
+            height: 40px;
+            line-height: 35px;
+            position: absolute;
+            top: 50%;
+            -webkit-transform: translate(0, -50%);
+            cursor: pointer;
+            -ms-transform: translate(0, -50%);
+            transform: translate(0, -50%);
+            text-align: center;
+            width: 40px;
+            z-index: 10;
+        }
+
+        .slide-control.prev {
+            left: 2%;
+        }
+
+        .slide-control.next {
+            right: 2%;
+        }
+
+        .slide-control:hover {
+            background: rgba(0, 0, 0, 0.8);
+            color: #aaaaaa;
+        }
+
+        #slide-1:checked~.control-1,
+        #slide-2:checked~.control-2,
+        #slide-3:checked~.control-3 {
+            display: block;
+        }
+
+        .slide-indicador {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            bottom: 2%;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .slide-indicador li {
+            display: inline-block;
+            margin: 0 5px;
+        }
+
+        .slide-circulo {
+            color: #f5f5f5;
+            cursor: pointer;
+            display: block;
+            font-size: 35px;
+        }
+
+        .slide-circulo:hover {
+            color: #f1d535;
+        }
+
+        #slide-1:checked~.control-1~.slide-indicador li:nth-child(1) .slide-circulo,
+        #slide-2:checked~.control-2~.slide-indicador li:nth-child(2) .slide-circulo,
+        #slide-3:checked~.control-3~.slide-indicador li:nth-child(3) .slide-circulo {
+            color: #000000;
+        }
+
+     
+
+        /* para animar imagen */
+
+        .re {
+            text-align: left;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 1200px;
+            padding: 10px;
+        }
+
+        .gallery-item {
+            flex: 1 1 calc(25% - 40px);
+            /* 4 columnas en pantallas grandes */
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border-radius: 10px;
+        }
+
+        /* INVESTIGACION */
+        .gallery-item:hover img {
+            transform: scale(1.1);
+            /* Ampliar la imagen al pasar el cursor */
+            opacity: 0.8;
+            /* Reducir la opacidad al pasar el cursor */
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.5);
+            /* Sombra con hover */
+        }
+
+        .gallery-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .gallery-item:hover::before {
+            opacity: 1;
+        }
+
+        /* Efecto de sombra interna */
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Estilo responsivo */
+        @media (max-width: 1200px) {
+            .gallery-item {
+                flex: 1 1 calc(33.33% - 40px);
+                /* 3 columnas en pantallas medianas */
+            }
+        }
+
+        @media (max-width: 800px) {
+            .gallery-item {
+                flex: 1 1 calc(50% - 40px);
+                /* 2 columnas en pantallas pequeñas */
+            }
+        }
+
+        @media (max-width: 500px) {
+            .gallery-item {
+                flex: 1 1 100%;
+                /* 1 columna en pantallas muy pequeñas */
+            }
+        }
+
+
+        .left-content {
+            flex: 1;
+            /* Esto hace que el contenido de la izquierda ocupe el espacio necesario */
+            margin-right: 20px;
+        }
+
+        .des {
+            display: flex;
+
+        }
+
+        .fosiles {
+            box-shadow: 0px 15px 30px rgba(224, 221, 221, 0.5);
+        }
+
+        .page-header .barritas {
+            width: 21px;
+            left: 15px;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            position: absolute;
+            top: 26px;
+        }
+
+        .page-header .subscribe-button a {
+            position: absolute;
+            top: 6.5%;
+            right: 15px;
+            background-color: #fece00;
+            width: 110px;
+            height: 25px;
+            text-transform: uppercase;
+            text-align: center;
+            font-size: 16px;
+            padding: 8px;
+            text-decoration: none;
+            display: flex;
+            color: #000;
+            flex-direction: column;
+            justify-content: center;
+            margin-right: 200px;
+            margin-top: 10px;
+
+        }
+
+        .page-header .logo {
+            display: flex;
+            margin-left: 200px;
+
+        }
+
+
+
+        .page-header .logo .nav .mas {
+            text-align: center;
+            list-style-type: none;
+            padding: 0;
+            text-align: center;
+            font-size: small;
+
+        }
+
+        .fosiles {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly;
+            right: 20%;
+            top: auto;
+        }
+
+        .page-header .logo .mas {
+            display: flex;
+            margin-left: 115px;
+        }
+     
+        .contrevistas{
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .revistas {
+            width: 250px;
+        }
+        .revistas img {
+            width: 100%;
+            border: 2px solid #ddd;
+        }
+        .revistas h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+        .revistas p {
+            font-size: 1em;
+            color: #555;
+        }
+  
+    
+    </style>
+</head>
+
+<body>
+    <!-- Menú de navegación -->
+    <div class="menu">
+        <nav>
+            <ul>
+                <li><a href="Claves.html">Claves cometa del siglo</a></li>
+                <li><a href="Mejorefotos.html">Mejores fotos océano</a></li>
+                <li><a href="burbuja.html">Burbuja plasma pirámides</a></li>
+                <li><a href="tumba.html">Tumba hermana Ramses II</a></li>
+                <li><a href="urbex.html">Urbex y todo los que necesitas</a></li>
+                <li><a href="luna.html">Super luna</a></li>
+            </ul>
+        </nav>
+        <hr width="100%">
+
+    </div>
+
+    <header class="page-header">
+        <div class="logo">
+            <a href="https://www.nationalgeographic.com.es/" >
+                <img src="https://www.nationalgeographic.com.es/Content/img/logo-white.svg" width="135" height="50"
+                alt="National Geographic Logo" />
+            </a>
+
+            <nav class="mas">
+                <ul>
+                    <li style="font-size: large;">ANIMALES</li>
+                    <LI style="font-size: large;">MEDIO AMBIENTE</LI>
+                    <li style="font-size: large;">CIENCIA</li>
+                    <li style="font-size: large;">HISTOIRA</li>
+                    <li style="font-size: large;">VIAJES</li>
+                </ul>
+            </nav>
+            
+
+        </div>
+
+
+
+
+        <span class="barritas">
+            <b></b>
+            <b></b>
+            <b></b>
+        </span>
+
+        <div class="subscribe-button">
+            <a href="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&amp;rba_medium=referral&amp;rba_source=nationalgeographic&amp;rba_campaign=ngme&amp;rba_content=header"
+                class="button-suscription default" data-ga4_event="custom_event" data-ga4_event_name="click_cta"
+                data-ga4_link_text="suscribete"
+                data-ga4_link_url="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&amp;rba_medium=referral&amp;rba_source=nationalgeographic&amp;rba_campaign=ngme&amp;rba_content=header">
+                <span>Suscríbete</span>
+            </a>
+
+        </div>
+        </div>
+
+
+    </header>
+
+
+
+    <!-- Encabezado con logo y línea amarilla -->
+
+
+    <!-- entrar el contenido -->
+    <div class="container">
+        <section>
+
+            </style>
+            </head>
+
+            <body>
+                <div class="slide">
+                    <div class="slide-inner">
+                        <input class="slide-open" type="radio" id="slide-1" name="slide" aria-hidden="true" hidden=""
+                            checked="checked">
+                        <div class="slide-item">
+                                <a href="https://www.nationalgeographic.com.es/ciencia/esto-es-que-significa-que-se-hayan-encontrado-huellas-dinosaurios-identicas-a-ambos-lados-atlantico_23094">
+                                    <img src="https://scontent.fvvi1-1.fna.fbcdn.net/v/t39.30808-6/245647541_10159520713178684_2464999558033360738_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=127cfc&_nc_ohc=r7lWdIqHZLkQ7kNvgFnmS09&_nc_zt=23&_nc_ht=scontent.fvvi1-1.fna&_nc_gid=ApJT0Hzco_CkFLgvMnsDQCW&oh=00_AYCt2llUMxcbKxkWaoWFD0qqpJXoL4Q3jwDvQzVpDGD9Gw&oe=6717C0D3"
+                                style="text-align: center;" height="500" width="700">
+                                </a>
+                           
+                        </div>
+                        <input class="slide-open" type="radio" id="slide-2" name="slide" aria-hidden="true" hidden="">
+                        <div class="slide-item">
+                            <a href="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&rba_medium=referral&rba_source=nationalgeographic&rba_campaign=ngme&rba_content=banner-home">
+                                <img src="https://www.repubblica.it/promo/natgeo/dwapp/assets/img/on-board-lite.png"
+                                style="text-align: center;" height="400" width="700">
+                            </a>
+                            
+                        </div>
+                        <input class="slide-open" type="radio" id="slide-3" name="slide" aria-hidden="true" hidden="">
+                        <div class="slide-item">
+                            <img src=" https://scontent.fvvi1-1.fna.fbcdn.net/v/t39.30808-6/255493101_10159567183098684_4011726173493169854_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=127cfc&_nc_ohc=prnMrGSuXDIQ7kNvgHQ_V2L&_nc_zt=23&_nc_ht=scontent.fvvi1-1.fna&_nc_gid=A6NBQitzHWUDmT_4Zd3bH7W&oh=00_AYCZFprp8T3VnDZjO_aih_wJ260frYTJTFwLpKfOSoKgkw&oe=6717C693"
+                                sttyle="text-align: center;" height="500" width="700">
+                        </div>
+                        <label for="slide-3" class="slide-control prev control-1">‹</label>
+                        <label for="slide-2" class="slide-control next control-1">›</label>
+                        <label for="slide-1" class="slide-control prev control-2">‹</label>
+                        <label for="slide-3" class="slide-control next control-2">›</label>
+                        <label for="slide-2" class="slide-control prev control-3">‹</label>
+                        <label for="slide-1" class="slide-control next control-3">›</label>
+                        <ol class="slide-indicador">
+                            <li>
+                                <label for="slide-1" class="slide-circulo">•</label>
+                            </li>
+                            <li>
+                                <label for="slide-2" class="slide-circulo">•</label>
+                            </li>
+                            <li>
+                                <label for="slide-3" class="slide-circulo">•</label>
+                            </li>
+                        </ol>
+                    </div>
+
+                </div>
+
+                <br>
+                <strong>
+                    <h2>Dinosaurios
+                </strong></h2>
+
+                <br>
+                <img src="https://content.nationalgeographic.com.es/medio/2018/03/17/craneo-de-tyrannosaurus-rex__1280x720.JPG"
+                    alt="Dinosaurio" width="900" height="600">
+                <figure>
+                    <!-- para comenatr abajo de la imagen -->
+                    <caption>
+
+                        <h6>Cráneo de un célebre ejemplar de Tyrannosaurus Rex del Museo de Historial Natural de Berlín.
+                            Este dinosaurio se extinguió a finales del Cretácico, hace 66 millones de años</h6>
+                    </caption>
+                </figure>
+                <div>
+                    <p>A lo largo de los años, National Geographic ha documentado descubrimientos clave que revelan más
+                        detalles
+                        sobre la vida de estas criaturas prehistóricas.</p>
+                    <p>Los dinosaurios han capturado la imaginación de generaciones enteras. Estos impresionantes
+                        animales
+                        dominaron la Tierra hace más de 65 millones de años, y a través de los descubrimientos
+                        científicos,
+                        seguimos aprendiendo más sobre ellos.</p>
+                    <p>Los dinosaurios fueron un grupo de reptiles que habitaron la Tierra en la era mesozoica , desde
+                        el
+                        período triásico superior hasta fines del cretácico (245 a 65 millones de años atrás). Su
+                        desaparición marca el límite entre la era mesozoica y la cenozoica, y el comienzo de la
+                        denominada
+                        edad de los mamíferos. El término dinosaurio proviene del griego (significa "lagarto terrible")
+                        y se
+                        refiere a ejemplares de lo más diversos: grandes, como el brontosaurio, que pesaba cerca de 75
+                        toneladas, y muy pequeños, como el saltopus, de tan sólo 50 cm de largo.
+
+                        Los primeros homínidos , por su parte, aparecieron en la Tierra hace relativamente poco,
+                        alrededor
+                        de 2 millones de años atrás, muchísimo después de que el último de estos grandes reptiles
+                        pereciera.
+                        Las imágenes de los primeros hombres junto a los dinosaurios no son más que un producto de la
+                        fantasía.</p>
+                    <h1 class="re">Un reptil con pocas plumas</h1>
+                    <img src="https://static.nationalgeographicla.com/files/styles/image_3200/public/03_lizardmeal_microraptor_illustration_doyle_trankina.jpg?w=1600&h=900"
+                        height="600" width="900">
+                    <br>
+                    <p>Según los investigadores, las plumas probablemente se desarrollaron en zonas específicas para
+                        cumplir
+                        ciertas funciones, mientras que en el resto del cuerpo conservaban las escamas. Estas tenían un
+                        papel muy importante ya que evitaban la deshidratación y la abrasión de la piel a causa del sol,
+                        además de protegerla de los parásitos. Los Psittacosaurus, concretamente, tenían largos
+                        filamentos
+                        queratinosos en la parte superior de la cola, mientras que el resto de su cuerpo era escamoso.
+
+                        El equipo utilizó técnicas avanzadas que combinan el uso de luz ultravioleta, infrarroja y rayos
+                        X
+                        para examinar la piel de un ejemplar encontrado en el noreste de China. Esta piel conserva
+                        evidencias de diversas capas epidérmicas y una estructura en forma de láminas que indica la
+                        presencia de escamas.
+
+                        También se han detectado trazas de melanosomas, los compartimentos donde se produce el pigmento
+                        de
+                        la piel, revelando que seguramente estos dinosaurios tenían patrones de diversos colores como
+                        los
+                        reptiles actuales. Estos les podrían haber servido para camuflarse mejor entre la vegetación, ya
+                        que
+                        eran herbívoros de pequeño tamaño que podían ser presas fáciles.</p>
+
+
+        </section>
+        <hr>
+ 
+        <section>
+            <hr>
+            <h1 class="revistasti" style="font-family: Figtree, sans-serif; text-align: center;">SUSCRÍBETE CON REGALO</h1>
+        
+            <div class="contrevistas">
+                <div class="revistas">
+                    <a href="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&rba_medium=referral&rba_source=nationalgeographic&rba_campaign=ngme&rba_content=footer">
+                        <img src="https://static.rba.nom.es/rbarevistas/medio/2024/09/16/ng-554_548b5212_500x665.jpg" alt="National Geographic">
+                    </a>
+                    <h3>Alimenta tu curiosidad</h3>
+                    <p>por solo 5€/mes</p>
+                </div>
+        
+                <div class="revistas">
+                    <a href="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&rba_medium=referral&rba_source=nationalgeographic&rba_campaign=ngme&rba_content=footer">
+                        <img src="https://static.rba.nom.es/rbarevistas/medio/2024/10/14/viajes-296_edc1145c_500x665.jpg" alt="Viajes">
+                    </a>
+                    <h3>Explora nuevos destinos</h3>
+                    <p>por solo 5€/mes</p>
+                </div>
+        
+                <div class="revistas">
+                    <a href="https://tienda.rba.es/revistas/suscripcion-national-geographic?ORIGIN=REF&rba_medium=referral&rba_source=nationalgeographic&rba_campaign=ngme&rba_content=footer">
+                        <img src="https://static.rba.nom.es/rbarevistas/medio/2024/09/12/historia-250_69578442_500x665.jpg" alt="Historia">
+                    </a>
+                    <h3>Da un paso más en historia</h3>
+                    <p>por solo 5€/mes</p>
+                </div>
+            </div>
+            <hr>
+            <hr>
+        </section>
+        
+
+
+        <br>
+        <h1 style="font-size: 2em;">Dia mundial de los fosiles</h1>
+
+        <br>
+        <div>
+            <img src="https://pbs.twimg.com/media/GLD2dskbcAA9d-2?format=jpg&name=medium" alt="Dinosaurio" width="600">
+            <br>
+
+            <div class="fosiles">
+                <p>Nanchang, 18 oct (Xinhua) — Investigadores chinos descubrieron un nuevo tipo de fósil de huevo de
+                    dinosaurio en la provincia oriental china de Jiangxi, uno de los cuales mide solo 29 milímetros de
+                    longitud, el más pequeño jamás encontrado en el mundo.
+
+                    Después de un estudio de tres años, el equipo, integrado por investigadores del Instituto de
+                    Exploración
+                    y Estudios Geológicos de Jiangxi (JGSEI, por sus siglas en inglés), la Universidad de Geociencias de
+                    China (Wuhan) y el Instituto de Paleontología y Paleoantropología de Vertebrados de la Academia de
+                    Ciencias de China, confirmó que los seis fósiles, que datan del período Cretácico tardío, hace más
+                    de 80
+                    millones de años, corresponden a huevos de dinosaurio.
+
+                    Los fósiles, relativamente completos y dispuestos de forma irregular, fueron encontrados en un nido
+                    bien
+                    conservado descubierto durante un proyecto de construcción en el poblado de Meilin del distrito de
+                    Ganxian, en la ciudad de Ganzhou, en 2021.</p>
+            </div>
+
+            <p>Durante miles de años los dinosaurios fueron los amos y señores de la Tierra. Sin embargo, ¿qué
+                provocó
+                su extinción? ¿Cuántos tipos había? Descúbrelo en nuestros contenidos de DINOSAURIOS, en NATIONAL
+                GEOGRAPHIC NOW. Consulta la disponibilidad del servicio con tu operador.
+            </p>
+        </div>
+
+        <section>
+            <br>
+            <hr>
+            <h1><strong>¿Cuánto sabes sobre el tiranosaurio rex?</strong></h1>
+            <p>El T. rex o tiranosaurio es uno de los dinosaurios más carismáticos y terroríficos que se conocen. Pero
+                muchas cosas que dábamos por sabidas sobre este depredador prehistórico no lo son tanto. ¿Sabrás
+                distinguir lo verdadero de lo falso en este test?</p>
+            <img src="https://static.nationalgeographic.es/files/styles/image_3200/public/01-tyrannosaurus-rex.jpg?w=1900&h=1269"
+                width="600">
+            <br>
+            <p>El tyrannosaurus rex fue uno de los depredadores más feroces que jamás haya caminado sobre la Tierra. Con
+                un cuerpo enorme, dientes afilados y mandíbulas tan poderosas que podrían aplastar un auto, este famoso
+                carnívoro dominó los valles boscosos de los ríos en el oeste de América del Norte durante el período
+                Cretácico tardío, hace 68 millones de años.
+
+                Aunque el T. rex es un nombre familiar, lo que sabemos sobre este tiranosaurio está en constante
+                evolución. Las tecnologías mejoradas, como el modelado biomecánico y las imágenes de rayos X, han
+                permitido a los científicos obtener una comprensión más profunda de cómo vivía este depredador del
+                ápice.</p>
+        </section>
+
+
+
+        <body>
+
+            <h1>Más Noticias</h1>
+
+            <!-- Contenedor de la galería -->
+            <div class="gallery">
+                <div class="gallery-item">
+                    <a href="https://www.nationalgeographic.com.es/ciencia/descubren-terrible-dinosaurio-depredador-que-vivio-casi-100-anos-antes-que-t-rex_23114">
+                        <img src="https://content.nationalgeographic.com.es/medio/2024/08/28/alpakarasurus-kyrgyzicus-joschua-knuppe_00000000_240828233014_480x480.jpg"
+                        alt="Imagen 1">
+                    </a>
+                    
+                    <h2>Dinosaurio deprerador, nuevo descubrimientos, vivio más de 100 años</h2>
+                    <p>El descubrimiento de huellas de dinosaurio coincidentes en África y América del Sur revela la
+                        historia de la última conexión entre los dos continentes.</p>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://www.nationalgeographic.com.es/ciencia/esto-es-que-significa-que-se-hayan-encontrado-huellas-dinosaurios-identicas-a-ambos-lados-atlantico_23094">
+                        <img src="https://content.nationalgeographic.com.es/medio/2024/08/27/huellas-de-ornitopodos_00000000_240827094008_480x480.jpg"
+                        alt="Imagen 2">
+                    </a>
+                   
+                    <h2>Antropolaga Victoria encuentra huellas en el atlantico</h2>
+                    <p>El descubrimiento de huellas de dinosaurio coincidentes en África y América del Sur revela la
+                        historia de la última conexión entre los dos continentes.</p>
+                </div>
+                <div class="gallery-item">
+                    <a href="https://www.nationalgeographic.com.es/ciencia/descubren-nuevo-dinosaurio-cretacico-espana-y-ha-recibido-este-peculiar-nombre_23167">
+                        <img src="https://content.nationalgeographic.com.es/medio/2024/09/05/qunkasaura-pintiquiniestra-3_00000000_240905122336_480x480.jpg"
+                        alt="Imagen 3">
+                    </a>
+                    <h2>Fosiles, el dia esperado, España con nuevos fosiles de dinosaurios</h2>
+                    <p>LQuizás el nombre Qunkasaura pintiquiniestra no te diga mucho, pero tiene un significado tan
+                        especial como lo que representa: se trata de uno de los esqueletos de saurópodo más completos de
+                        Europa.</p>
+                </div>
+            </div>
+
+
+            <!-- Pie de página -->
+
+    </div>
+    <br>
+    <footer>
+        <br>
+
+        <img src="https://www.nationalgeographic.com.es/Content/img/ng-logo-white.svg" width="185" height="67"
+            style="padding: 0%;">
+
+
+        <div class="historiacon">
+            <div class="historia">
+                <a href="https://historia.nationalgeographic.com.es/" title="National Geographic Historia"
+                    data-ga4_event="custom_event" data-ga4_event_name="click_footer"
+                    data-ga4_link_text="national_geographic_historia_logo"
+                    data-ga4_link_url="https://historia.nationalgeographic.com.es/" target="_blank" class="rba-logo">
+                    <img src="https://www.nationalgeographic.com.es/Content/img/logo-ngHistoria.svg" width="200"
+                        height="80" alt="National Geographic Historia">
+                </a>
+
+
+                <a href="https://viajes.nationalgeographic.com.es/" title="National Geographic viajes"
+                    data-ga4_event="custom_event" data-ga4_event_name="click_footer"
+                    data-ga4_link_text="national_geographic_historia_logo"
+                    data-ga4_link_url="https://historia.nationalgeographic.com.es/" target="_blank" class="rba-logo">
+                    <img src=" https://www.nationalgeographic.com.es/Content/img/logo-ngViajes.svg" width="200"
+                        height="80" alt="National Geographic Historia">
+                </a>
+            </div>
+        </div>
+
+        <p>&copy; 2024 National Geographic</p>
+    </footer>
+
+</body>
+
+</html>
